@@ -1,0 +1,58 @@
+﻿@model Pinacoteca.Areas.Admin.Models.AdminPintoresViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "LayoutAdmin";
+}
+<form method="post" action="~/Admin/Pintores/Agregar" enctype="multipart/form-data">
+    <div>
+        <h1>Agregar Pintor</h1>
+
+        <label>Nombre:</label>
+        <input type="text" id="txtNombre" asp-for="Pintores.Nombre"/>
+
+        <label>País:</label>
+        <input type="text" id="txtPais" asp-for="Pintores.Pais" />
+
+        <label>Ciudad:</label>
+        <input type="text" id="txtCiudad" asp-for="Pintores.Ciudad" />
+
+        <label>Fecha Nacimiento:</label>
+        <input type="text" id="txtFechaNacimiento" asp-for="Pintores.FechaNacimiento" />
+
+        <label>Fecha Fallecimiento:</label>
+        <input type="text" id="txtFechaFallecimiento" asp-for="Pintores.FechaFallecimiento" />
+
+        <label>Biografía:</label>
+        <input type="text" id="txtBiografia" asp-for="Pintores.Biografia" />
+
+        <label>Imagen:</label>
+        <input type="file" id="fileUpload1" accept="image/jpg" asp-for="Archivo" />
+
+        <img id="imagePreview" src="~/img_frutas/no-disponible.png" />
+
+        <div class="botones">
+            <p id="error">@Html.ValidationSummary(true)</p>
+            <input type="submit" value="Agregar" id="btnAgregar" />
+            <a href="~/Admin/Pintores">
+                <input type="button" value="Cancelar" id="btnCancelar" />
+            </a>
+        </div>
+    </div>
+</form>
+<script>
+    function mostrarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("imagePreview").src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    document
+        .getElementById("fileUpload1")
+        .addEventListener("change", function () {
+            mostrarImagen(this);
+        });
+</script>
